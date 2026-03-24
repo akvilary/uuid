@@ -147,8 +147,8 @@ if tryParseUuid("6ba7b810-9dad-11d1-80b4-00c04fd430c8", u):
 ```nim
 let id: Uuid = uuid7()
 
-id.version   # uvV7 (UuidVersion enum)
-id.variant   # uvRFC9562 (UuidVariant enum)
+id.version   # uver7 (UuidVersion enum)
+id.variant   # uvarRFC9562 (UuidVariant enum)
 id.isNil     # false
 id.isMax     # false
 id.bytes     # array[16, byte] — raw byte access

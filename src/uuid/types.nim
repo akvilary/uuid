@@ -8,21 +8,21 @@ type
     ## Byte layout follows RFC 9562 network byte order (big-endian).
 
   UuidVersion* = enum
-    uvNone = 0
-    uvV1 = 1
-    uvV2 = 2
-    uvV3 = 3
-    uvV4 = 4
-    uvV5 = 5
-    uvV6 = 6
-    uvV7 = 7
-    uvV8 = 8
+    uverNone = 0
+    uver1 = 1
+    uver2 = 2
+    uver3 = 3
+    uver4 = 4
+    uver5 = 5
+    uver6 = 6
+    uver7 = 7
+    uver8 = 8
 
   UuidVariant* = enum
-    uvNCS        ## NCS backward compatibility (0xx)
-    uvRFC9562    ## RFC 9562 / RFC 4122 (10x)
-    uvMicrosoft  ## Microsoft backward compatibility (110)
-    uvFuture     ## Reserved for future (111)
+    uvarNCS        ## NCS backward compatibility (0xx)
+    uvarRFC9562    ## RFC 9562 / RFC 4122 (10x)
+    uvarMicrosoft  ## Microsoft backward compatibility (110)
+    uvarFuture     ## Reserved for future (111)
 
 const
   NilUuid* = Uuid([0x00'u8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -52,21 +52,21 @@ proc toUuid*(b: array[16, byte]): Uuid {.inline.} =
 
 proc version*(u: Uuid): UuidVersion =
   let v = int(array[16, byte](u)[6] shr 4)
-  if v >= ord(uvNone) and v <= ord(uvV8):
+  if v >= ord(uverNone) and v <= ord(uver8):
     UuidVersion(v)
   else:
-    uvNone
+    uverNone
 
 proc variant*(u: Uuid): UuidVariant =
   let b = array[16, byte](u)[8]
   if (b and 0x80) == 0:
-    uvNCS
+    uvarNCS
   elif (b and 0xC0) == 0x80:
-    uvRFC9562
+    uvarRFC9562
   elif (b and 0xE0) == 0xC0:
-    uvMicrosoft
+    uvarMicrosoft
   else:
-    uvFuture
+    uvarFuture
 
 proc isNil*(u: Uuid): bool =
   array[16, byte](u) == array[16, byte](NilUuid)

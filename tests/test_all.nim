@@ -8,7 +8,7 @@ suite "types":
   test "NilUuid":
     check NilUuid.isNil
     check not NilUuid.isMax
-    check NilUuid.version == uvNone
+    check NilUuid.version == uverNone
     check $NilUuid == "00000000-0000-0000-0000-000000000000"
 
   test "MaxUuid":
@@ -71,8 +71,8 @@ suite "from integer":
 
   test "no version/variant bits set":
     let u = toUuid(1)
-    check u.version == uvNone
-    check u.variant == uvNCS
+    check u.version == uverNone
+    check u.variant == uvarNCS
 
   test "negative int raises":
     expect RangeDefect:
@@ -107,8 +107,8 @@ suite "parse":
 suite "v4 (random)":
   test "version and variant":
     let u = uuid4()
-    check u.version == uvV4
-    check u.variant == uvRFC9562
+    check u.version == uver4
+    check u.variant == uvarRFC9562
 
   test "not nil":
     let u = uuid4()
@@ -127,8 +127,8 @@ suite "v3 (MD5)":
 
   test "version and variant":
     let u = uuid3(NamespaceDNS, "test")
-    check u.version == uvV3
-    check u.variant == uvRFC9562
+    check u.version == uver3
+    check u.variant == uvarRFC9562
 
   test "deterministic":
     let a = uuid3(NamespaceURL, "https://example.com")
@@ -147,8 +147,8 @@ suite "v5 (SHA-1)":
 
   test "version and variant":
     let u = uuid5(NamespaceDNS, "test")
-    check u.version == uvV5
-    check u.variant == uvRFC9562
+    check u.version == uver5
+    check u.variant == uvarRFC9562
 
   test "deterministic":
     let a = uuid5(NamespaceOID, "1.2.3.4")
@@ -158,8 +158,8 @@ suite "v5 (SHA-1)":
 suite "v1 (time-based)":
   test "version and variant":
     let u = uuid1()
-    check u.version == uvV1
-    check u.variant == uvRFC9562
+    check u.version == uver1
+    check u.variant == uvarRFC9562
 
   test "node multicast bit":
     let data = uuid1().bytes
@@ -173,8 +173,8 @@ suite "v1 (time-based)":
 suite "v6 (reordered time-based)":
   test "version and variant":
     let u = uuid6()
-    check u.version == uvV6
-    check u.variant == uvRFC9562
+    check u.version == uver6
+    check u.variant == uvarRFC9562
 
   test "sortable ordering":
     let a = uuid6()
@@ -189,8 +189,8 @@ suite "v6 (reordered time-based)":
 suite "v7 (Unix epoch time-based)":
   test "version and variant":
     let u = uuid7()
-    check u.version == uvV7
-    check u.variant == uvRFC9562
+    check u.version == uver7
+    check u.variant == uvarRFC9562
 
   test "sortable ordering":
     let a = uuid7()
@@ -214,13 +214,13 @@ suite "v8 (custom)":
     for i in 0 ..< 16:
       data[i] = byte(i)
     let u = uuid8(data)
-    check u.version == uvV8
-    check u.variant == uvRFC9562
+    check u.version == uver8
+    check u.variant == uvarRFC9562
 
   test "version and variant from uint64":
     let u = uuid8(0xDEADBEEF_CAFEBABE'u64, 0x12345678_9ABCDEF0'u64)
-    check u.version == uvV8
-    check u.variant == uvRFC9562
+    check u.version == uver8
+    check u.variant == uvarRFC9562
 
   test "custom bits preserved (except version/variant)":
     var data: array[16, byte]
