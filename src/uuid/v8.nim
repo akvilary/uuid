@@ -2,13 +2,13 @@
 
 import ./types
 
-proc uuidv8*(data: array[16, byte]): Uuid =
+proc uuid8*(data: array[16, byte]): Uuid =
   ## Generates a version 8 UUID from raw bytes.
   ## Forces version=8 and variant=RFC9562 (overwrites 6 of 128 bits).
   result = Uuid(data)
   setVersionAndVariant(result, 8)
 
-proc uuidv8*(customA, customB: uint64): Uuid =
+proc uuid8*(customA, customB: uint64): Uuid =
   ## Generates a version 8 UUID from two 64-bit values.
   ## customA fills bytes 0-7, customB fills bytes 8-15.
   ## Version and variant bits are forced.

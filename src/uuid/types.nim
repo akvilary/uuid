@@ -105,6 +105,67 @@ proc cmp*(a, b: Uuid): int =
 proc hash*(u: Uuid): Hash {.inline.} =
   hash(array[16, byte](u))
 
+proc toUuid*(n: uint64): Uuid =
+  ## Creates a Uuid from a uint64 (stored in lower 8 bytes, big-endian).
+  ## Upper 8 bytes are zero. No version/variant bits are set.
+  ## Analogous to Python's UUID(int=N).
+  var data: array[16, byte]
+  data[8] = byte(n shr 56)
+  data[9] = byte(n shr 48)
+  data[10] = byte(n shr 40)
+  data[11] = byte(n shr 32)
+  data[12] = byte(n shr 24)
+  data[13] = byte(n shr 16)
+  data[14] = byte(n shr 8)
+  data[15] = byte(n)
+  Uuid(data)
+
+proc toUuid*(n: int): Uuid =
+  ## Creates a Uuid from an int (stored in lower 8 bytes, big-endian).
+  ## Upper 8 bytes are zero. No version/variant bits are set.
+  ## Raises RangeDefect if n is negative.
+  if n < 0:
+    raise newException(RangeDefect, "Cannot create UUID from negative integer")
+  toUuid(uint64(n))
+
+proc toUuid*(hi, lo: uint64): Uuid =
+  ## Creates a Uuid from two uint64 values (full 128 bits, big-endian).
+  ## No version/variant bits are set.
+  var data: array[16, byte]
+  data[0] = byte(hi shr 56)
+  data[1] = byte(hi shr 48)
+  data[2] = byte(hi shr 40)
+  data[3] = byte(hi shr 32)
+  data[4] = byte(hi shr 24)
+  data[5] = byte(hi shr 16)
+  data[6] = byte(hi shr 8)
+  data[7] = byte(hi)
+  data[8] = byte(lo shr 56)
+  data[9] = byte(lo shr 48)
+  data[10] = byte(lo shr 40)
+  data[11] = byte(lo shr 32)
+  data[12] = byte(lo shr 24)
+  data[13] = byte(lo shr 16)
+  data[14] = byte(lo shr 8)
+  data[15] = byte(lo)
+  Uuid(data)
+
+proc hi*(u: Uuid): uint64 {.inline.} =
+  ## Returns the upper 64 bits of the UUID.
+  let data = array[16, byte](u)
+  (uint64(data[0]) shl 56) or (uint64(data[1]) shl 48) or
+  (uint64(data[2]) shl 40) or (uint64(data[3]) shl 32) or
+  (uint64(data[4]) shl 24) or (uint64(data[5]) shl 16) or
+  (uint64(data[6]) shl 8) or uint64(data[7])
+
+proc lo*(u: Uuid): uint64 {.inline.} =
+  ## Returns the lower 64 bits of the UUID.
+  let data = array[16, byte](u)
+  (uint64(data[8]) shl 56) or (uint64(data[9]) shl 48) or
+  (uint64(data[10]) shl 40) or (uint64(data[11]) shl 32) or
+  (uint64(data[12]) shl 24) or (uint64(data[13]) shl 16) or
+  (uint64(data[14]) shl 8) or uint64(data[15])
+
 proc setVersionAndVariant*(u: var Uuid, ver: uint8) =
   var data = array[16, byte](u)
   data[6] = (data[6] and 0x0F) or (ver shl 4)

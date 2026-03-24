@@ -3,7 +3,7 @@
 import std/[times, sysrand]
 import ./types
 
-proc uuidv7*(): Uuid =
+proc uuid7*(): Uuid =
   ## Generates a version 7 UUID (48-bit Unix ms timestamp + random).
   let now = getTime()
   let ms = uint64(now.toUnix) * 1000'u64 + uint64(now.nanosecond div 1_000_000)

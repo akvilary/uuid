@@ -3,7 +3,7 @@
 import checksums/sha1
 import ./types
 
-proc uuidv5*(namespace: Uuid, name: string): Uuid =
+proc uuid5*(namespace: Uuid, name: string): Uuid =
   ## Generates a version 5 UUID from namespace and name using SHA-1.
   var ctx = newSha1State()
   let nsBytes = namespace.bytes

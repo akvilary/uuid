@@ -3,7 +3,7 @@
 import ./types
 import ./timegen
 
-proc uuidv1*(): Uuid =
+proc uuid1*(): Uuid =
   ## Generates a version 1 UUID (time-based, random node).
   let (ts, clockSeq, node) = getTimestampAndClockSeq()
   var data: array[16, byte]

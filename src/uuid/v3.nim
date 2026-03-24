@@ -3,7 +3,7 @@
 import checksums/md5
 import ./types
 
-proc uuidv3*(namespace: Uuid, name: string): Uuid =
+proc uuid3*(namespace: Uuid, name: string): Uuid =
   ## Generates a version 3 UUID from namespace and name using MD5.
   var ctx: MD5Context
   md5Init(ctx)

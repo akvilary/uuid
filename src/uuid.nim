@@ -4,9 +4,9 @@
 ##
 ## .. code-block:: nim
 ##   import uuid
-##   let id = uuidv4()
+##   let id = uuid4()
 ##   echo id                    # e.g. "550e8400-e29b-41d4-a716-446655440000"
-##   let id7 = uuidv7()         # sortable, time-based
+##   let id7 = uuid7()          # sortable, time-based
 ##   assert id7.version == uvV7
 
 import uuid/types
