@@ -1,5 +1,5 @@
 import std/[unittest, sets, hashes, os, times]
-import uuid
+import uniq
 
 suite "types":
   test "Uuid is 16 bytes":

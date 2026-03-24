@@ -1,17 +1,17 @@
-# uuid
+# uniq
 
 RFC 9562 UUID library for Nim. Stack-allocated 16-byte UUIDs, versions 1, 3, 4, 5, 6, 7, 8.
 
 ## Installation
 
 ```
-nimble install https://github.com/akvilary/uuid.git
+nimble install uniq
 ```
 
 Or add to your `.nimble` file:
 
 ```nim
-requires "https://github.com/akvilary/uuid.git >= 0.1.0"
+requires "uniq >= 0.1.0"
 ```
 
 ## Quick start
@@ -19,7 +19,7 @@ requires "https://github.com/akvilary/uuid.git >= 0.1.0"
 All generation functions return `Uuid` — a stack-allocated 16-byte object (`distinct array[16, byte]`), not a string. Use `$` to convert to string representation:
 
 ```nim
-import uuid
+import uniq
 
 let id: Uuid = uuid7()    # returns Uuid object (16 bytes on the stack)
 echo $id                   # "01937b1a-4e5c-7f2a-b3d1-4a8e9c0f1234"
