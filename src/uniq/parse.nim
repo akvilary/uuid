@@ -12,7 +12,7 @@ proc `$`*(u: Uuid): string =
   let data = u.bytes
   var pos = 0
   for i in 0 ..< 16:
-    if pos == 8 or pos == 13 or pos == 18 or pos == 23:
+    if pos in dashPositions:
       result[pos] = '-'
       inc pos
     result[pos] = hexChars[data[i] shr 4]

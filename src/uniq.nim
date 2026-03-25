@@ -10,7 +10,11 @@
 ##   assert id7.version == uver7
 
 import uniq/types
-export types
+export Uuid, UuidVersion, UuidVariant
+export NilUuid, MaxUuid, NamespaceDNS, NamespaceURL, NamespaceOID, NamespaceX500
+export bytes, toUuid, version, variant, isNil, isMax
+export `==`, `<`, `<=`, `>`, `>=`, cmp, hash
+export hi, lo
 
 import uniq/parse
 export parse
