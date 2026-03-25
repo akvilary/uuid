@@ -1,5 +1,5 @@
 # Package
-version       = "0.2.0"
+version       = "0.2.1"
 author        = "akvilary"
 description   = "RFC 9562 UUID library for Nim — stack-allocated, versions 1-8"
 license       = "MIT"
