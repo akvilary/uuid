@@ -1,5 +1,9 @@
 # uniq
 
+[![CI](https://github.com/akvilary/uniq/actions/workflows/ci.yml/badge.svg)](https://github.com/akvilary/uniq/actions/workflows/ci.yml)
+[![Nim version](https://img.shields.io/badge/Nim-%E2%89%A5%202.0.0-orange?logo=nim)](https://nim-lang.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 RFC 9562 UUID library for Nim. Stack-allocated 16-byte UUIDs, versions 1, 3, 4, 5, 6, 7, 8.
 
 ## Installation

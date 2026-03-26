@@ -8,3 +8,6 @@ srcDir        = "src"
 # Dependencies
 requires "nim >= 2.0.0"
 requires "checksums >= 0.1.0"
+
+task test, "Run tests":
+  exec "nim c -r --path:src tests/test_all.nim"
